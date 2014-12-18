@@ -2,15 +2,15 @@
 Contributors: SwiftCloud
 Tags: forms, web forms, polls, lead capture, landing page, 
 Requires at least: 3.0
-Tested up to: 4.0
-Stable tag: 4.0
+Tested up to: 4.1
+Stable tag: 4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Embeds SwiftForm.com (free HTML Forms generator) webforms via shortcode or widget tied to SwiftCloud apps. Free Signup at http://SwiftCloud.me
 
 == Description ==
-SwiftCloud simply connects your Wordpress site/blog to http://SwiftCloud.me functions.
+Instant embed of <a href="http://SwiftForm.com" target="_new">http://SwiftForm.com</a> Web-Forms, which is a drag-and-drop forms editor.
 
 *This plugin requires a (free or paid) account on http://SwiftCloud.me to do anything useful.*
 
@@ -19,15 +19,19 @@ SwiftCloud is a business productivity suite in alpha, mostly of value to web des
 http://SwiftForm.com is currently 100% free and will always have free options. If you just want to make a 
 nice looking form that emails you each time it is filled out, try it out.
 
-Features of SwiftForm:
+===== Features of SwiftForm: =====
 1. Fields like "Smart Zip" will automatically convert your zip code or postal code to city, state, zip, county, time zone
 1. Time zone, language settings and other meta will be stored automatically
 1. The complete URL of the page on which the form-data is sent from will be captured, including Google Analytics and other tracking data which will help with marketing, specifically, knowing how this person found you.
 1. More features coming soon.
 
-*This plugin and related code are evolving rapidly so please expect weekly updates through the end of 2014.*
+Currently this plugin does just one thing: 
+1. Embed SwiftForm.com forms (a free drag and drop forms editor) into any Wordpress
+1. In production: Google Analytics conversion to cookie, so as to pass it through on captures
+1. In alpha: Lead Scoring
 
-Currently this plugin does just one thing: Embed SwiftForm.com forms (a free drag and drop forms editor) into any Wordpress
+
+=== How to Use it ======
 blog / website, using either widgets or shortcodes (using [swiftform formid=XXXXXX] where XXXXX = your form number, as provided
 within the SwiftForm.com app.
 
