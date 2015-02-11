@@ -7,6 +7,11 @@
 		Author: Roger Vaughn, Sajid Javed
 		Author URI: http://SwiftCloud.me/
 	*/
+
+//Load admin modules
+require_once('admin/admin.php');
+
+
 class Swiftform_Widget extends WP_Widget
 {
 	var $ErrorMessage = 'Form ID is required to display form!';
@@ -25,14 +30,14 @@ class Swiftform_Widget extends WP_Widget
 		
 		$atts = shortcode_atts(
 			array(
-				'formid' => '',
+				'id' => '',
  			), $atts );
 		
 		extract($atts);		
 		
-		if( empty($formid) ) return $this->ErrorMessage;
+		if( empty($id) ) return $this->ErrorMessage;
 		
-  		$formID = $atts['formid'];
+  		$formID = $atts['id'];
 		
 		$readFormUrl = 'http://swiftform.com/f/'.$formID;
 		//exit($readFormUrl);
@@ -86,7 +91,7 @@ class Swiftform_Widget extends WP_Widget
       # Make the widget show the form
 	  if($formID!="") {
 		  
-		  $formData = array('formid' => $formID);
+		  $formData = array('id' => $formID);
 		  
 		  $text = $this->dispaly_swiftform($formData);
  		
@@ -135,12 +140,11 @@ class Swiftform_Widget extends WP_Widget
 }// END class
 
 /**
-  * Register Swift Form Widget
-  *
-  * Calls 'widgets_init' action after the Hello World widget has been registered.
-  */
-  function Swiftform_Widget_Init() {
-  register_widget('Swiftform_Widget');
-  }
-  add_action('widgets_init', 'Swiftform_Widget_Init');
-?>
+* Register Swift Form Widget
+*
+* Calls 'widgets_init' action after the Hello World widget has been registered.
+*/
+function Swiftform_Widget_Init() {
+	register_widget('Swiftform_Widget');
+}
+add_action('widgets_init', 'Swiftform_Widget_Init');
