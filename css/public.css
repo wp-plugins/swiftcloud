@@ -1,0 +1,61 @@
+.white-popup {
+  position: relative;
+  background: #FFF;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+}
+.white-popup-2 {
+  position: relative;
+  background: #FFF;
+  width: auto;
+  max-width: 1100px;
+  margin: 20px auto;
+}
+
+.mfp-close {
+	top: -18px !important;
+	right: -18px !important;
+	background:url('popup_close.png') !important;
+	width: 36px !important;
+	height: 37px !important;
+ 	font-size:0px !important; 
+	background:transparent;
+}
+.mfp-close:hover, .mfp-close:active, .mfp-close:focus{
+	background:transparent;
+}
+
+/* overlay at start */
+.mfp-fade.mfp-bg {
+  opacity: 0;
+
+  -webkit-transition: all 0.15s ease-out;
+  -moz-transition: all 0.15s ease-out;
+  transition: all 0.15s ease-out;
+}
+/* overlay animate in */
+.mfp-fade.mfp-bg.mfp-ready {
+  opacity: 0.8;
+}
+/* overlay animate out */
+.mfp-fade.mfp-bg.mfp-removing {
+  opacity: 0;
+}
+
+/* content at start */
+.mfp-fade.mfp-wrap .mfp-content {
+  opacity: 0;
+
+  -webkit-transition: all 0.15s ease-out;
+  -moz-transition: all 0.15s ease-out;
+  transition: all 0.15s ease-out;
+}
+/* content animate it */
+.mfp-fade.mfp-wrap.mfp-ready .mfp-content {
+  opacity: 1;
+}
+/* content animate out */
+.mfp-fade.mfp-wrap.mfp-removing .mfp-content {
+  opacity: 0;
+}

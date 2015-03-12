@@ -11,6 +11,183 @@
 //Load admin modules
 require_once('admin/admin.php');
 
+//Enqueue scripts and styles.
+function swift_enqueue_scripts_styles(){
+
+	wp_enqueue_script( 'swift-popup-js', plugins_url('/js/jquery.magnific-popup.min.js' , __FILE__), array('jquery'), '', true );
+		
+	wp_enqueue_style( 'swift-popup-css', plugins_url('/css/magnific-popup.css' , __FILE__), '', '', '' );
+	
+	wp_enqueue_style( 'swift-popup-custom', plugins_url('/css/public.css' , __FILE__), '', '', '' );
+		
+}
+add_action('wp_enqueue_scripts', 'swift_enqueue_scripts_styles');
+
+//Time aware poup will go here.
+function swift_timed_popup(){
+	$swift_settings = get_option('swift_settings');
+		
+	$returner = '';
+	
+	?>
+		<div style="display:none;">
+            <a class="popup-with-form swift_popup_trigger" href="#swift_timed_popup" >Inline</a>
+        </div>
+        <!-- This file is used to markup the public facing aspect of the plugin. -->
+        
+        <div style="width:400px;display: none;">
+        <div id="swift_timed_popup" class="white-popup" style="width:<?php echo $swift_settings['width']?>px; height:<?php echo $swift_settings['height']?>px">
+                <?php 
+               echo apply_filters('the_content', stripslashes($swift_settings['time_lead']));
+                ?>
+         </div>       
+            </div>
+        
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                                            
+                 $('.popup-with-form').magnificPopup({
+                      type: 'inline',
+                      preloader: false,
+					  
+					  // Delay in milliseconds before popup is removed
+					  removalDelay: 300,
+					
+					  // Class that is added to popup wrapper and background
+					  // make it unique to apply your CSS animations just to this exact popup
+					  mainClass: 'mfp-fade'
+					  
+                     });
+                
+                openFancybox(<?php echo $swift_settings['delay']?>);
+                
+            });
+            
+            function openFancybox(interval) {
+                setTimeout( function() {jQuery('.swift_popup_trigger').trigger('click'); },interval);
+            }
+        </script>
+	<?php 
+	
+}
+add_action('wp_footer', 'swift_timed_popup', 10);
+
+//Scroll aware poup will go here.
+function swift_scroll_popup(){
+	$swift_settings = get_option('swift_settings');
+	
+	/*echo "<pre>";
+	print_r($swift_settings);
+	echo "</pre>";*/
+	$returner = '';
+	
+	?>
+		<div style="display:none;">
+            <a class="swift_scroll_popup_trigger" href="#swift_scroll_popup" >Inline</a>
+        </div>
+        <span id="scroll_aware_init" style="opacity:0;">&nbsp;</span>
+        <!-- This file is used to markup the public facing aspect of the plugin. -->
+        
+        <div style="display: none;">
+        <div id="swift_scroll_popup" class="white-popup" style="width:<?php echo $swift_settings['width2']?>px; height:<?php echo $swift_settings['height2']?>px">
+                <?php echo apply_filters('the_content', stripslashes($swift_settings['slide_in'])); ?>
+         </div>       
+            </div>
+        
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                                            
+                 $('.swift_scroll_popup_trigger').magnificPopup({
+																
+                      type: 'inline',
+                      preloader: false,
+					  
+					  // Delay in milliseconds before popup is removed
+					  removalDelay: 300,
+					
+					  // Class that is added to popup wrapper and background
+					  // make it unique to apply your CSS animations just to this exact popup
+					  mainClass: 'mfp-fade'
+					  
+                     });
+				 
+				 $(window).scroll(function(e){
+									
+					var $scroll_position = $( "#scroll_aware_init" );
+					var window_offset = $scroll_position.offset().top - $(window).scrollTop();
+					
+					//console.log(window_offset);
+					
+					if(window_offset <= 900){
+					 jQuery('.swift_scroll_popup_trigger').trigger('click');
+					}
+					 
+					
+				});
+				 
+             });
+            						
+        </script>
+	<?php 
+	
+}
+add_action('wp_footer', 'swift_scroll_popup', 10);
+//Scroll aware poup end here.
+
+//Exit intent poup will go here.
+function swift_exit_popup(){
+	$swift_settings = get_option('swift_settings');
+
+	
+	$returner = '';
+	
+	?>
+		<div style="display:none;">
+            <a class="swift_exit_popup_trigger" href="#swift_exit_popup" >Inline</a>
+        </div>
+        <!-- This file is used to markup the public facing aspect of the plugin. -->
+        
+        <div style="width:400px;display: none;">
+        <div id="swift_exit_popup" class="white-popup" style="width:<?php echo $swift_settings['width2']?>px; height:<?php echo $swift_settings['height2']?>px">
+                <?php 
+               echo apply_filters('the_content', stripslashes($swift_settings['exit_intnet']));
+                ?>
+         </div>       
+            </div>
+        
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                                            
+                 $('.swift_exit_popup_trigger').magnificPopup({
+                      type: 'inline',
+                      preloader: false,
+					  
+					  // Delay in milliseconds before popup is removed
+					  removalDelay: 300,
+					
+					  // Class that is added to popup wrapper and background
+					  // make it unique to apply your CSS animations just to this exact popup
+					  mainClass: 'mfp-fade'
+					  
+                     });
+				 
+				 $(document).mouseleave(function(e) {
+					
+					//console.log(e.pageY);
+					if(e.pageY <= 5)
+					{	
+						jQuery('.swift_exit_popup_trigger').trigger('click')
+					}
+					
+				});
+				 
+             });
+            						
+        </script>
+	<?php 
+	
+}
+add_action('wp_footer', 'swift_exit_popup', 10);
 
 class Swiftform_Widget extends WP_Widget
 {
@@ -40,14 +217,15 @@ class Swiftform_Widget extends WP_Widget
   		$formID = $atts['id'];
 		
 		$readFormUrl = 'http://swiftform.com/f/'.$formID;
+		//$readFormUrl = 'http://swiftform.com/f/44646546';
 		//exit($readFormUrl);
 		
 		// make sure curl is installed
 		if (function_exists('curl_init')) {
 		   // initialize a new curl resource
 		   $ch = curl_init();
-		
-		   // set the url to fetch
+ 
+ 		   // set the url to fetch
 		   curl_setopt($ch, CURLOPT_URL, $readFormUrl);
 		
 		   // don't give me the headers just the content
@@ -56,7 +234,7 @@ class Swiftform_Widget extends WP_Widget
 		   // return the value instead of printing the response to browser
 		   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		   
-		   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
 		
 		   // use a user agent to mimic a browser
 		   curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.5) Gecko/20041107 Firefox/1.0');
