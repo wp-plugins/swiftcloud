@@ -15,7 +15,9 @@ require_once('admin/admin.php');
 function swift_enqueue_scripts_styles(){
 
 	wp_enqueue_script( 'swift-popup-js', plugins_url('/js/jquery.magnific-popup.min.js' , __FILE__), array('jquery'), '', true );
-		
+	
+	wp_enqueue_script( 'swift-cookie-js', plugins_url('/js/jquery.cookie.js' , __FILE__), array('jquery', 'swift-popup-js' ), '', true );
+	
 	wp_enqueue_style( 'swift-popup-css', plugins_url('/css/magnific-popup.css' , __FILE__), '', '', '' );
 	
 	wp_enqueue_style( 'swift-popup-custom', plugins_url('/css/public.css' , __FILE__), '', '', '' );
@@ -26,6 +28,9 @@ add_action('wp_enqueue_scripts', 'swift_enqueue_scripts_styles');
 //Time aware poup will go here.
 function swift_timed_popup(){
 	$swift_settings = get_option('swift_settings');
+	
+	//Return if not enabled
+	if(!$swift_settings['enable_time']) return;
 		
 	$returner = '';
 	
@@ -49,6 +54,11 @@ function swift_timed_popup(){
                  $('.popup-with-form').magnificPopup({
                       type: 'inline',
                       preloader: false,
+					  callbacks: {
+								  close: function() {
+										  $.cookie('dont_show_timed', '1' ,{ expires: 7, path: '/' } );	
+									  }
+								  },
 					  
 					  // Delay in milliseconds before popup is removed
 					  removalDelay: 300,
@@ -58,12 +68,17 @@ function swift_timed_popup(){
 					  mainClass: 'mfp-fade'
 					  
                      });
-                
-                openFancybox(<?php echo $swift_settings['delay']?>);
+				 
+                if( $.cookie('dont_show_timed') != 1){ 
+				
+					var $intrvl = <?php echo $swift_settings['delay']?> * 1000; 
+					alert($intrvl);
+	                openTimedbox($intrvl);
+				}
                 
             });
             
-            function openFancybox(interval) {
+            function openTimedbox(interval) {
                 setTimeout( function() {jQuery('.swift_popup_trigger').trigger('click'); },interval);
             }
         </script>
@@ -76,6 +91,9 @@ add_action('wp_footer', 'swift_timed_popup', 10);
 function swift_scroll_popup(){
 	$swift_settings = get_option('swift_settings');
 	
+	//Return if not enabled
+	if(!$swift_settings['enable_scroll']) return;
+	
 	/*echo "<pre>";
 	print_r($swift_settings);
 	echo "</pre>";*/
@@ -85,7 +103,7 @@ function swift_scroll_popup(){
 		<div style="display:none;">
             <a class="swift_scroll_popup_trigger" href="#swift_scroll_popup" >Inline</a>
         </div>
-        <span id="scroll_aware_init" style="opacity:0;">&nbsp;</span>
+        <span id="scroll_aware_init" style="opacity:0; position:absolute; bottom:0px; height:0px;">&nbsp;</span>
         <!-- This file is used to markup the public facing aspect of the plugin. -->
         
         <div style="display: none;">
@@ -104,6 +122,12 @@ function swift_scroll_popup(){
 					  
 					  // Delay in milliseconds before popup is removed
 					  removalDelay: 300,
+					  callbacks: {
+								  close: function() {
+										  $.cookie('dont_show_scroll', '1' ,{ expires: 7, path: '/' } );	
+									  }
+						},
+					  
 					
 					  // Class that is added to popup wrapper and background
 					  // make it unique to apply your CSS animations just to this exact popup
@@ -119,7 +143,8 @@ function swift_scroll_popup(){
 					//console.log(window_offset);
 					
 					if(window_offset <= 900){
-					 jQuery('.swift_scroll_popup_trigger').trigger('click');
+						if( $.cookie('dont_show_scroll') != 1) 
+					 		jQuery('.swift_scroll_popup_trigger').trigger('click');
 					}
 					 
 					
@@ -137,7 +162,8 @@ add_action('wp_footer', 'swift_scroll_popup', 10);
 //Exit intent poup will go here.
 function swift_exit_popup(){
 	$swift_settings = get_option('swift_settings');
-
+	//Return if not enabled
+	if(!$swift_settings['enable_exit']) return;
 	
 	$returner = '';
 	
@@ -164,6 +190,12 @@ function swift_exit_popup(){
 					  
 					  // Delay in milliseconds before popup is removed
 					  removalDelay: 300,
+					  
+					  callbacks: {
+								  close: function() {
+										  $.cookie('dont_show_exit', '1' ,{ expires: 7, path: '/' } );	
+									  }
+						},
 					
 					  // Class that is added to popup wrapper and background
 					  // make it unique to apply your CSS animations just to this exact popup
@@ -171,13 +203,9 @@ function swift_exit_popup(){
 					  
                      });
 				 
-				 $(document).mouseleave(function(e) {
-					
-					//console.log(e.pageY);
-					if(e.pageY <= 5)
-					{	
+				 $('body').mouseleave(function(e) {
+					if( $.cookie('dont_show_exit') != 1) 
 						jQuery('.swift_exit_popup_trigger').trigger('click')
-					}
 					
 				});
 				 
@@ -185,10 +213,10 @@ function swift_exit_popup(){
             						
         </script>
 	<?php 
-	
+	  
 }
 add_action('wp_footer', 'swift_exit_popup', 10);
-
+   
 class Swiftform_Widget extends WP_Widget
 {
 	var $ErrorMessage = 'Form ID is required to display form!';
@@ -216,33 +244,20 @@ class Swiftform_Widget extends WP_Widget
 		
   		$formID = $atts['id'];
 		
-		$readFormUrl = 'http://swiftform.com/f/'.$formID;
+		$readFormUrl = 'http://f.swiftform.com/'.$formID;
+		
 		//$readFormUrl = 'http://swiftform.com/f/44646546';
 		//exit($readFormUrl);
 		
 		// make sure curl is installed
 		if (function_exists('curl_init')) {
-		   // initialize a new curl resource
-		   $ch = curl_init();
- 
- 		   // set the url to fetch
-		   curl_setopt($ch, CURLOPT_URL, $readFormUrl);
-		
-		   // don't give me the headers just the content
-		   curl_setopt($ch, CURLOPT_HEADER, 0);
-		
-		   // return the value instead of printing the response to browser
-		   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		   
-		   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
-		
-		   // use a user agent to mimic a browser
-		   curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.7.5) Gecko/20041107 Firefox/1.0');
-		
-		   $text = curl_exec($ch);
-		    
-		   // remember to always close the session and free all resources
-		   curl_close($ch);
+			
+			$ch = curl_init($readFormUrl);
+			$nmr = 10;
+			$text = curl_redirect_exec($ch, $nmr);
+			curl_close($ch);
+			
+		 
 		} else {
 		   // curl library is not installed so we better use something else
 		}
@@ -326,3 +341,34 @@ function Swiftform_Widget_Init() {
 	register_widget('Swiftform_Widget');
 }
 add_action('widgets_init', 'Swiftform_Widget_Init');
+
+
+function curl_redirect_exec($ch, &$redirects, $curlopt_header = false) {
+    curl_setopt($ch, CURLOPT_HEADER, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    $data = curl_exec($ch);
+
+    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    if ($http_code == 301 || $http_code == 302) {
+        list($header) = explode("\r\n\r\n", $data, 2);
+
+        $matches = array();
+        preg_match("/(Location:|URI:)[^(\n)]*/", $header, $matches);
+        $url = trim(str_replace($matches[1], "", $matches[0]));
+
+        $url_parsed = parse_url($url);
+        if (isset($url_parsed)) {
+            curl_setopt($ch, CURLOPT_URL, $url);
+            $redirects++;
+            return curl_redirect_exec($ch, $redirects, $curlopt_header);
+        }
+    }
+
+    if ($curlopt_header) {
+        return $data;
+    } else {
+        list(, $body) = explode("\r\n\r\n", $data, 2);
+        return $body;
+    }
+}
