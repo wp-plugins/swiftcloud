@@ -11,6 +11,8 @@
 //Load admin modules
 require_once('admin/admin.php');
 
+require_once('swift-mortgage-app/swift-mortgage-app.php');
+
 //Enqueue scripts and styles.
 function swift_enqueue_scripts_styles(){
 
@@ -43,7 +45,10 @@ function swift_timed_popup(){
         <div style="width:400px;display: none;">
         <div id="swift_timed_popup" class="white-popup" style="width:<?php echo $swift_settings['width']?>px; height:<?php echo $swift_settings['height']?>px">
                 <?php 
-               echo apply_filters('the_content', stripslashes($swift_settings['time_lead']));
+				if($swift_settings['form_id'])
+					echo do_shortcode('[swiftform  id="'.$swift_settings['form_id'].'"]');
+				else	
+	                echo apply_filters('the_content', stripslashes($swift_settings['time_lead']));
                 ?>
          </div>       
             </div>
@@ -54,6 +59,7 @@ function swift_timed_popup(){
                  $('.popup-with-form').magnificPopup({
                       type: 'inline',
                       preloader: false,
+					  overflowY: 'scroll',
 					  callbacks: {
 								  close: function() {
 										  $.cookie('dont_show_timed', '1' ,{ expires: 7, path: '/' } );	
@@ -72,7 +78,6 @@ function swift_timed_popup(){
                 if( $.cookie('dont_show_timed') != 1){ 
 				
 					var $intrvl = <?php echo $swift_settings['delay']?> * 1000; 
-					alert($intrvl);
 	                openTimedbox($intrvl);
 				}
                 

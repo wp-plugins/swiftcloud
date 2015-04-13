@@ -22,6 +22,8 @@ function swift_enqueue_admin_scripts_styles(){
  	wp_enqueue_style( 'swift-toggle-style', plugins_url('/toggles/css/toggles.css' , __FILE__), '', '', '' );
 	wp_enqueue_style( 'swift-toggle-style-theme', plugins_url('/toggles/css/toggles-full.css' , __FILE__), '', '', '' );
 	
+	wp_enqueue_style( 'swift-admin-style', plugins_url('/css/admin.css' , __FILE__), '', '', '' );
+	
 	wp_enqueue_script( 'swift-toggle-js', plugins_url('/toggles/toggles.js' , __FILE__), array('jquery'), '', true );
 	wp_enqueue_script( 'swift-toggle-custom-js', plugins_url('/js/admin.js' , __FILE__), array('jquery', 'swift-toggle-js'), '', true );
 
@@ -52,30 +54,38 @@ function swift_control_panel_cb(){?>
     	<?php _e('Lead Scoring'); ?>
     </a>
     
+    <a href="<?php echo admin_url('admin.php')?>?page=swift_control_panel&tab=livechat" class="nav-tab <?php echo $active_tab == 'livechat' ? 'nav-tab-active' : ''; ?>">
+    	<?php _e('Live Chat'); ?>
+    </a>
+    
+    <a href="<?php echo admin_url('admin.php')?>?page=swift_control_panel&tab=helpsupport" class="nav-tab <?php echo $active_tab == 'helpsupport' ? 'nav-tab-active' : ''; ?>">
+    	<?php _e('Help / Support'); ?>
+    </a>
+    
+    
+    
+    
+    
     </h2>
   <?php if( $active_tab == 'general' ) {?>
   <div class="inner_content">
     <p>
-      <?php _e('This form is designed to work with <a href="http://SwiftForm.com" target="_new">SwiftForm.com</a>, a free drag-and-drop forms generator 100% integrated with SwiftCloud, a social business platform. 
-	  No purchase is required to get value and use this plugin. Learn more at <a href="http://SwiftCloud.me" target="_new">SwiftCloud.me</a>.', 'swift-cloud');?>
+      <?php _e('Thanks for installing the plugin.', 'swift-cloud');?>
     </p>
     <h3>
       <?php _e('Widget usage instructions:', 'swift-cloud');?>
     </h3>
     <p>
-      <?php _e('Here is how to use this plugin with widget locations, typically in a sidebar or footer.', 'swift-cloud');?>
+      <?php _e('Here are easy steps to use this plugin.', 'swift-cloud');?>
     <ol>
       <li>
-        <?php _e('Visit <a href="http://SwiftForm.com" target="_new">SwiftForm.com</a>, signup if needed (free), and generate your webform(s). Make note of the number of each form.', 'swift-cloud');?>
-      </li>
-      <li>
-        <?php _e('Next, Navigate to Appearance > <a href="'.get_admin_url('', 'widgets.php').'">Widgets</a>.', 'swift-cloud');?>
+        <?php _e('Navigate to Appearance > <a href="'.get_admin_url('', 'widgets.php').'">Widgets</a>.', 'swift-cloud');?>
       </li>
       <li>
         <?php _e('Add the "Swiftform" widget in sidebar to show the like box in your website sidebar.', 'swift-cloud');?>
       </li>
       <li>
-        <?php _e('Add a Widget title.', 'swift-cloud');?>
+        <?php _e('Input title.', 'swift-cloud');?>
       </li>
       <li>
         <?php _e('Input cloud form ID that you have generated from <a href="http://swiftform.com/" target="_blank">swiftform.com</a> using drag and drop form builder.', 'swift-cloud');?>
@@ -88,9 +98,6 @@ function swift_control_panel_cb(){?>
     <h3>
       <?php _e('Shortcode usage instructions:', 'swift-cloud'); ?>
     </h3>
-	    <p>
-      <?php _e('Here is how to use this plugin to drop forms into any main page-body area', 'swift-cloud');?>
-		</p>
     <ol>
       <li>
         <?php _e('Add [swiftform id="123"] shortcode into post/page/ editor to display the form.' , 'swift-cloud');?>
@@ -104,7 +111,7 @@ function swift_control_panel_cb(){?>
     	<ol><li>Lead Nurturing: See <a href="http://swiftmarketing.com/sales-lead-incubator" target="_blank">http://swiftmarketing.com/sales-lead-incubator</a></li></ol> 
     
     <p>
-      <?php _e('We are constantly working on improving this plugin so stay tuned.', 'swift-cloud');?>
+      <?php _e('We are constantly working on the betterment and improvement of this plugin so stay tuned.', 'swift-cloud');?>
     </p>
   </div>
   <?php }?>
@@ -124,6 +131,8 @@ function swift_control_panel_cb(){?>
 				$swift_settings['height'] = $_POST['swift_settings']['height'];
 				$swift_settings['enable_time'] = $_POST['swift_settings']['enable_time'];
 				$swift_settings['time_lead'] = $_POST['swift_settings']['time_lead'];
+				$swift_settings['form_id'] = $_POST['swift_settings']['form_id'];
+				$swift_settings['timed_popup_content'] = $_POST['swift_settings']['timed_popup_content'];
  				
 				/*echo '<pre>';print_r($_POST['save_popups']);exit;*/
 				 $update = update_option('swift_settings', $swift_settings);
@@ -188,7 +197,6 @@ function swift_control_panel_cb(){?>
                 <input class="checkme" id="enable_time" type="checkbox" value="1" <?php echo checked('1',$swift_settings['enable_time']) ?> name="swift_settings[enable_time]" style="display:none;"/>
                 <script type="text/javascript">
                     jQuery(document).ready(function($){
-                        
                             $('.enable_time').toggles({checkbox:$('.checkme')});							
                             <?php if($swift_settings['enable_time']){?>
                                 $('.enable_time').click();
@@ -202,8 +210,32 @@ function swift_control_panel_cb(){?>
             <tr>
               <th>PopUp Content</th>
               <td>
-            <?php $settings['textarea_name'] = 'swift_settings[time_lead]' ; 
-            wp_editor( stripslashes($swift_settings['time_lead']) , 'time_lead_capture', $settings )?>
+              <h2 class="nav-tab-wrapper" id="wpseo-tabs">
+                <a class="nav-tab custom-tab <?php if($swift_settings['timed_popup_content'] == 's_id' || empty($swift_settings['timed_popup_content'])) echo 'nav-tab-active';?>" data-formid="sform_a_1" id="general-tab" href="#sform">SwiftForm</a>
+                <a class="nav-tab custom-tab <?php if($swift_settings['timed_popup_content'] == 'html_content') echo 'nav-tab-active';?>" id="home-tab" data-formid="sform_a_1" href="#html">Direct HTML</a>
+                
+            </h2>
+            
+            <br />
+            <br />
+            
+            <div class="tabwrapper">
+            
+            	<div id="sform" class="panel <?php if($swift_settings['timed_popup_content'] == 's_id' || empty($swift_settings['timed_popup_content']) ) echo 'active';?> ">
+                	My timed popup form ID # is
+                	<input type="text" value="<?php echo $swift_settings['form_id'] ?>" class="" name="swift_settings[form_id]"/>
+                    <input style="display:none;" type="radio" class="sform_a_1" name="swift_settings[timed_popup_content]" value="s_id" />
+                </div>
+                
+                <div id="html" class="panel <?php if($swift_settings['timed_popup_content'] == 'html_content') echo 'active';?>">
+                	 <input style="display:none;" type="radio" class="sform_a_1" name="swift_settings[timed_popup_content]" value="html_content" />
+ 					<?php 
+                    $settings['textarea_name'] = 'swift_settings[time_lead]' ; 
+                    wp_editor( stripslashes($swift_settings['time_lead']) , 'time_lead_capture', $settings )?>
+               </div>
+               
+            </div>
+            
             </td>
             </tr>
            
@@ -239,8 +271,8 @@ function swift_control_panel_cb(){?>
 				$swift_settings['height1'] = $_POST['swift_settings']['height1'];
 				$swift_settings['enable_scroll'] = $_POST['swift_settings']['enable_scroll'];
 				$swift_settings['slide_in'] = $_POST['swift_settings']['slide_in'];
-	 
-				
+				$swift_settings['form_id_slide'] = $_POST['swift_settings']['form_id_slide'];
+				$swift_settings['scroll_popup_content'] = $_POST['swift_settings']['scroll_popup_content'];
 				
 				/*echo '<pre>';print_r($_POST['save_popups']);exit;*/
 				 $update = update_option('swift_settings', $swift_settings);
@@ -314,9 +346,33 @@ function swift_control_panel_cb(){?>
             <tr>
               <th>Popup content</th>
               <td>
-            <?php 
-            $settings['textarea_name'] = 'swift_settings[slide_in]' ;
-            wp_editor( stripslashes($swift_settings['slide_in']) , 'scroll_aware_slidein', $settings )?>
+              
+              <h2 class="nav-tab-wrapper" id="wpseo-tabs">
+                <a class="nav-tab custom-tab <?php if($swift_settings['scroll_popup_content'] == 's_id' || empty($swift_settings['scroll_popup_content'])) echo 'nav-tab-active';?>" data-formid="swift_two" id="general-tab" href="#sform">SwiftForm</a>
+                <a class="nav-tab custom-tab <?php if($swift_settings['scroll_popup_content'] == 'html_content') echo 'nav-tab-active';?>" id="home-tab" data-formid="swift_two" href="#html">Direct HTML</a>
+                
+            </h2>
+            
+            <br />
+            <br />
+            
+            <div class="tabwrapper">
+            
+            	<div id="sform" class="panel <?php if($swift_settings['scroll_popup_content'] == 's_id' || empty($swift_settings['scroll_popup_content']) ) echo 'active';?> ">
+                	My scroll popup form ID # is
+                	<input type="text" value="<?php echo $swift_settings['form_id_slide'] ?>" class="" name="swift_settings[form_id_slide]"/>
+                    <input style="display:none;" type="radio" class="swift_two" name="swift_settings[scroll_popup_content]" value="s_id" checked="checked"/>
+                </div>
+                
+                <div id="html" class="panel <?php if($swift_settings['scroll_popup_content'] == 'html_content') echo 'active';?>">
+                	 <input style="display:none;" type="radio" class="swift_two" name="swift_settings[scroll_popup_content]" value="html_content" />
+ 					 <?php 
+					$settings['textarea_name'] = 'swift_settings[slide_in]' ;
+					wp_editor( stripslashes($swift_settings['slide_in']) , 'scroll_aware_slidein', $settings )?>
+               </div>
+               
+            </div>
+           
             </td>
              </tr>
           
@@ -351,7 +407,8 @@ function swift_control_panel_cb(){?>
 				$swift_settings['height2'] = $_POST['swift_settings']['height2'];
 				$swift_settings['enable_exit'] = $_POST['swift_settings']['enable_exit'];
 				$swift_settings['exit_intnet'] = $_POST['swift_settings']['exit_intnet'];
-				
+				$swift_settings['form_id_exit'] = $_POST['swift_settings']['form_id_exit'];
+				$swift_settings['exit_popup_content'] = $_POST['swift_settings']['exit_popup_content'];
 				
 				/*echo '<pre>';print_r($_POST['save_popups']);exit;*/
 				 $update = update_option('swift_settings', $swift_settings);
@@ -432,9 +489,33 @@ function swift_control_panel_cb(){?>
             <tr>
               <th>PopUp content</th>
               <td>
-            <?php 
-            $settings['textarea_name'] = 'swift_settings[exit_intnet]' ;
-            wp_editor( stripslashes($swift_settings['exit_intnet']) , 'exit_intnet_overlay', $settings )?>
+              
+              <h2 class="nav-tab-wrapper" id="wpseo-tabs">
+                <a class="nav-tab custom-tab <?php if($swift_settings['exit_popup_content'] == 's_id' || empty($swift_settings['exit_popup_content'])) echo 'nav-tab-active';?>" data-formid="swift_three" id="general-tab" href="#sform">SwiftForm</a>
+                <a class="nav-tab custom-tab <?php if($swift_settings['exit_popup_content'] == 'html_content') echo 'nav-tab-active';?>" id="home-tab" data-formid="swift_three" href="#html">Direct HTML</a>
+                
+            </h2>
+            
+            <br />
+            <br />
+            
+            <div class="tabwrapper">
+            
+            	<div id="sform" class="panel <?php if($swift_settings['exit_popup_content'] == 's_id' || empty($swift_settings['exit_popup_content']) ) echo 'active';?> ">
+                	My exit popup form ID # is
+                	<input type="text" value="<?php echo $swift_settings['form_id_exit'] ?>" class="" name="swift_settings[form_id_exit]"/>
+                    <input style="display:none;" type="radio" class="swift_three" name="swift_settings[scroll_popup_content]" value="s_id" checked="checked"/>
+                </div>
+                
+                <div id="html" class="panel <?php if($swift_settings['exit_popup_content'] == 'html_content') echo 'active';?>">
+                	 <input style="display:none;" type="radio" class="swift_three" name="swift_settings[exit_popup_content]" value="html_content" />
+ 					 <?php 
+						$settings['textarea_name'] = 'swift_settings[exit_intnet]' ;
+						wp_editor( stripslashes($swift_settings['exit_intnet']) , 'exit_intnet_overlay', $settings )?>
+               </div>
+               
+            </div>
+                   
             </td>
             </tr>
                     <tr>
@@ -462,15 +543,8 @@ function swift_control_panel_cb(){?>
 			) {
 				$swift_settings = get_option('swift_settings');
 				
-				//Save feilds of scroll aware popup
- 				$swift_settings['width2'] = $_POST['swift_settings']['width2'];
-				$swift_settings['height2'] = $_POST['swift_settings']['height2'];
-				$swift_settings['enable_exit'] = $_POST['swift_settings']['enable_exit'];
-				$swift_settings['exit_intnet'] = $_POST['swift_settings']['exit_intnet'];
-				
-				
 				/*echo '<pre>';print_r($_POST['save_popups']);exit;*/
-				 $update = update_option('swift_settings', $swift_settings);
+				//$update = update_option('swift_settings', $swift_settings);
 			}
 			$swift_settings = get_option('swift_settings');
 			
@@ -488,6 +562,142 @@ function swift_control_panel_cb(){?>
             </th>
             </tr>
             </table>
+            
+      </div>
+      <?php }
+      
+      if( $active_tab == 'livechat' ) {
+ 	    $settings = array( 'media_buttons' => true, 'textarea_rows' => 10, 'quicktags' => true, 'textarea_name' => 'swift_settings[delay]',  );
+ 	   /*echo '<pre>';print_r($swift_settings);exit;*/
+	   
+	   ?>
+      <div class="inner_content">
+        <?php 
+			/*Save settings */
+			if ( 
+				isset( $_POST['save_popups'] ) 
+				&& wp_verify_nonce( $_POST['save_popups'], 'save_popups' ) 
+			) {
+				$swift_settings = get_option('swift_settings');
+				
+				/*echo '<pre>';print_r($_POST['save_popups']);exit;*/
+				//$update = update_option('swift_settings', $swift_settings);
+			}
+			$swift_settings = get_option('swift_settings');
+			
+			
+			if($update){
+                echo '<div id="message" class="updated below-h2"><p>Settings updated successfully!</p></div>';
+            }?>
+		
+         <table class="form-table">
+ 
+         
+            <tr>
+              <th colspan="2" align="center">
+            <h3>Coming soon</h3>
+            </th>
+            </tr>
+            <tr><td>
+             Live Chat is  
+             </td><td><div class="toggle_container" style="width:100px; text-align:center">
+                <div class="enable_chat toggle-light">
+                </div> 
+                 
+                <input type="checkbox" value="1" <?php echo checked('1',$swift_settings['enable_scroll']) ?> class="checkme_c"  id="enable_chat" name="swift_settings[enable_chat]" style="display:none;"/>
+                <script type="text/javascript">
+                    jQuery(document).ready(function($){
+                        
+                            $('.enable_chat').toggles({checkbox:$('.checkme_c')});							
+                            <?php if($swift_settings['enable_scroll']){?>
+                                $('.enable_chat').click();
+                            <?php }?>
+                    });
+                </script>
+                </div></td>
+             </tr>
+             
+            </table>
+            
+      </div>
+      <?php }  
+	  
+      if( $active_tab == 'helpsupport' ) {
+ 	    $settings = array( 'media_buttons' => true, 'textarea_rows' => 10, 'quicktags' => true, 'textarea_name' => 'swift_settings[delay]',  );
+ 	   /*echo '<pre>';print_r($swift_settings);exit;*/
+	   
+	   ?>
+      <div class="inner_content">
+        <?php 
+			/*Save settings */
+			if ( 
+				isset( $_POST['save_popups'] ) 
+				&& wp_verify_nonce( $_POST['save_popups'], 'save_popups' ) 
+			) {
+				$swift_settings = get_option('swift_settings');
+				
+				/*echo '<pre>';print_r($_POST['save_popups']);exit;*/
+				//$update = update_option('swift_settings', $swift_settings);
+			}
+			$swift_settings = get_option('swift_settings');
+			
+			
+			if($update){
+                echo '<div id="message" class="updated below-h2"><p>Settings updated successfully!</p></div>';
+            }?>
+		
+         <table class="form-table">
+ 
+         
+            <tr>
+              <th colspan="2" align="center">
+            <h3>SwiftHelpDesk.com</h3>
+            </th>
+            </tr>
+            <tr>
+              <th>
+            <label for="popup-scroll">My SwiftForm.com help support form is number</label>
+            </th>
+            <td>
+            <input type="text" value="<?php echo $swift_settings['help_form_id'] ?>" class="" name="swift_settings[help_form_id]"/> 
+            </td>
+            </tr>
+            
+            <tr>
+              <th>
+            <label for="popup-scroll">My help / support category is</label>
+            </th>
+            <td>
+            <select name="swift_settings[help_form_cat]">
+            	<option value="0">--Select--</option>
+                <option value="1">Technical Support</option>
+                <option value="2">Customization Help</option>
+            </select>
+            </td>
+            </tr>
+            </table>
+            
+            <p>
+      		<?php _e('How to use:', 'swift-cloud');?>
+            <ol>
+              <li>
+                <?php _e('Login to SwiftForm.com (account required, free or premium)', 'swift-cloud');?>
+              </li>
+              <li>
+                <?php _e('Create a Support / Helpdesk form', 'swift-cloud');?>
+              </li>
+              <li>
+                <?php _e('Note the number of the form and enter it above.', 'swift-cloud');?>
+              </li>
+              <li>
+                <?php _e('Drop shortcode [swifthelpdeskform] on to any page-body.', 'swift-cloud');?>
+              </li>
+            </ol>
+            </p>
+            
+            <p>
+      		<?php _e('This will create a custom support form and search system for you.', 'swift-cloud');?>
+            </p>
             
       </div>
       <?php } ?>

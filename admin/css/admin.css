@@ -1,0 +1,6 @@
+.tabwrapper .panel{
+	display:none;
+} 
+.tabwrapper .panel.active{
+	display:block;
+}
