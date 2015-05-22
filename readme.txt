@@ -1,23 +1,31 @@
-=== Plugin Name ===
+=== SwiftCloud Inbound Marketing ===
 Contributors: SwiftCloud
-Tags: forms, web forms, polls, lead capture, landing page, 
+Donate link: http://SwiftCloud.io
+Tags: inbound marketing, forms, web forms, polls, lead capture, landing page
 Requires at least: 3.0
 Tested up to: 4.2.2
-Stable tag: 4.2.2
+Stable tag: 1.01
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Embeds SwiftForm.com (free HTML Forms generator) webforms via shortcode or widget tied to SwiftCloud apps. Free Signup at http://SwiftCloud.me
+Easy drag-and-drop web forms, Call-To-Action forms & popups for inbound marketing through your free or paid (https://SwiftCloud.io) account.
 
 == Description ==
-Instant embed of <a href="http://SwiftForm.com" target="_new">http://SwiftForm.com</a> Web-Forms, which is a drag-and-drop forms editor.
+Instant, easy embed of <a href="http://SwiftForm.com" target="_new">http://SwiftForm.com</a> Web-Forms, which is a drag-and-drop forms editor.
 
-*This plugin requires a (free or paid) account on http://SwiftCloud.me to do anything useful.*
+**SwiftCloud is a business productivity suite, focused on marketing and sales. Try it free, then embed this plugin to see it in action.**
 
-SwiftCloud is a business productivity suite in alpha, mostly of value to web designers and developers.
+SwiftCloud currently includes:
 
-http://SwiftForm.com is currently 100% free and will always have free options. If you just want to make a 
-nice looking form that emails you each time it is filled out, try it out.
+1. [Swift CRM](https://SwiftCRM.com) - Client Relationship Management
+2. [Swift Marketing](https://SwiftMarketing.com)  - including autoresponders and inbound marketing tools
+3. [Swift Form](https://SwiftForm.com)  - a drag-and-drop forms editor for lead capture, inbound marketing, helpdesk forms, job applications, and more.
+4. [SwiftCloud.io](https://SwiftCloud.io)  - Address book, social / sharable online documents & file storage and team groupware
+5. [Swift Tasks](https://SwiftTasks.com)  - social task & project management
+
+http://SwiftForm.com is currently 100% free and will always have free options. 
+
+If you just want to make a nice looking form that emails you each time it is filled out, try it out. SwiftCloud is "freemium" i.e. we have paid options, but the basics are free.
 
 ===== Features of SwiftForm: =====
 1. Fields like "Smart Zip" will automatically convert your zip code or postal code to city, state, zip, county, time zone
