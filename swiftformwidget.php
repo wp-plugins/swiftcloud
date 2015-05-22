@@ -2,8 +2,8 @@
 /*
 		Plugin Name: SwiftCloud
 		Plugin URL: http://kb.SwiftCloud.me/wordpress-plugin
-		Description: Allows you to include Swift Forms as widget in Sidebars
-		Version: 1.0
+		Description: Easy instant embed of http://SwiftForm.com forms via shortcode - example: [swiftform id="123] (replace the 123 with your form ID number), or Appearance >> Widgets.
+		Version: 1.01
 		Author: Roger Vaughn, Sajid Javed
 		Author URI: http://SwiftCloud.me/
 	*/

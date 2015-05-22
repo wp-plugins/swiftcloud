@@ -8,7 +8,7 @@ Stable tag: 1.01
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easy Web Forms, Call-To-Action Lead Captures & Popups for Inbound Marketing through your free or paid https://SwiftCloud.io account.
+Easy Web Forms, Call-To-Action Lead Captures & Popups for Inbound Marketing through your free or paid SwiftCloud.io account.
 
 == Description ==
 Instant, easy embed of <a href="http://SwiftForm.com" target="_new">http://SwiftForm.com</a> Web-Forms, which is a drag-and-drop forms editor.
