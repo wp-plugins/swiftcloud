@@ -19,7 +19,7 @@ SwiftCloud currently includes:
 
 1. [Swift CRM](https://SwiftCRM.com) - Client Relationship Management
 2. [Swift Marketing](https://SwiftMarketing.com)  - including autoresponders and inbound marketing tools
-3. [Swift Form](https://SwiftForm.com)  - a drag-and-drop forms editor for lead capture, inbound marketing, helpdesk forms, job applications, and more.
+3. [Swift Form](http://SwiftForm.com)  - a drag-and-drop forms editor for lead capture, inbound marketing, helpdesk forms, job applications, and more.
 4. [SwiftCloud.io](https://SwiftCloud.io)  - Address book, social / sharable online documents & file storage and team groupware
 5. [Swift Tasks](https://SwiftTasks.com)  - social task & project management
 
@@ -64,13 +64,23 @@ drag and drop fields to create a form, click save, and then remember the number 
 
 1. How do I use it?
 
-See above. You need a SwiftCloud account (free for most applications) (sign up at http://SwiftCloud.me to use any 
-SwiftCloud apps). To drop into a page-body, use shortcode [swiftform formid=XXXXXX] where XXXXX is your form number,
-or drag and drop a widget on the Appearance >> Widgets section.
+Easy! 
+
+* First, signup at [SwiftCloud](https://SwiftCloud.io) (free), then when logged in, hover the logo top left and drop it to SwiftForm.
+* Next, go to [SwiftForm >> New Form](http://swiftform.com/public/create-form). Drag and drop from the fields on the left, choose what you want to happen after capture, and hit save.
+* Next, embed into your website by dropping in a shortcode like [swiftform id="123"] (change the 123 to your form number) OR go to appearance >> widgets and drag 'SwiftForm' over into a widget location.
+
+That's it.
+
+For more help, see our [SwiftForm Support Section](https://SwiftForm.com/support) video training.
 
 == Screenshots ==
 
-Coming soon
+1. SwiftForm.com user interface
+2. Popup example
+3. Call To Action for Inbound Marketing example with marketing bait
+
+* enclose in trunk: screenshot-1.png, sreenshot-2.png etc *
 
 == Changelog ==
 
@@ -83,4 +93,6 @@ UI tweaks for popups, adding ajaxed incomplete lead-capture
 Added popups, helpdesk forms, ajax capture of incomplete leads
 
 
-`<?php code(); // goes in backticks ?>`
+== Translations ==
+
+* English - for now, that's all, but if interested we welcome some help! Contact us for a .pot file.
