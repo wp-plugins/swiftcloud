@@ -8,7 +8,7 @@ Stable tag: 1.01
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easy drag-and-drop web forms, Call-To-Action forms & popups for inbound marketing through your free or paid (https://SwiftCloud.io) account.
+Easy Web Forms, Call-To-Action Lead Captures & Popups for Inbound Marketing through your free or paid https://SwiftCloud.io account.
 
 == Description ==
 Instant, easy embed of <a href="http://SwiftForm.com" target="_new">http://SwiftForm.com</a> Web-Forms, which is a drag-and-drop forms editor.
@@ -54,11 +54,11 @@ with additional use cases planned to follow. We welcome your feedback and reques
 == Installation ==
 You probably know the drill by now, but if not, here's a step by step suggestion.
 
-1. Upload the `SwiftCloud_WP` folder to the `/wp-content/plugins/` directory
+1. Upload the `SwiftCloud` folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. To install a webform, login at http://SwiftForm.com (free signup) and click 'new form',
 drag and drop fields to create a form, click save, and then remember the number it gives you.
-1. Either drop a shortcode 
+1. Either drop a shortcode like [swiftform id="123"] (change the 123 to your form number) OR go to appearance >> widgets and drag 'SwiftForm' over into a widget location. 
 
 == Frequently Asked Questions ==
 
