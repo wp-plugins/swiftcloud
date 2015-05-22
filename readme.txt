@@ -69,11 +69,10 @@ Coming soon
 = 1.01 =
 UI tweaks for popups, adding ajaxed incomplete lead-capture
 
-= 1.0 =
-Stable basic release
+== Upgrade Notice ==
 
-= 0.2 =
-* Alpha release.
+= 1.1 =
+Added popups, helpdesk forms, ajax capture of incomplete leads
 
 
 `<?php code(); // goes in backticks ?>`
