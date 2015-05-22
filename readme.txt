@@ -66,6 +66,9 @@ Coming soon
 
 == Changelog ==
 
+= 1.01 =
+UI tweaks for popups, adding ajaxed incomplete lead-capture
+
 = 1.0 =
 Stable basic release
 
