@@ -20,45 +20,35 @@ SwiftCloud currently includes:
 1. [Swift CRM](https://SwiftCRM.com) - Client Relationship Management
 2. [Swift Marketing](https://SwiftMarketing.com)  - including autoresponders and inbound marketing tools
 3. [Swift Form](http://SwiftForm.com)  - a drag-and-drop forms editor for lead capture, inbound marketing, helpdesk forms, job applications, and more.
-4. [SwiftCloud.io](https://SwiftCloud.io)  - Address book, social / sharable online documents & file storage and team groupware
-5. [Swift Tasks](https://SwiftTasks.com)  - social task & project management
+4. [SwiftCloud.io](http://SwiftCloud.io)  - Address book, social / sharable online documents & file storage and team groupware.
+5. [Swift Tasks](http://SwiftTasks.com)  - social task & project management, pipeline automation.
+6. [Swift Books](http://SwiftBooks.com) - accounting and financial software with invoicing, subscription management, retainer billing, and more.
+7. [Swift Clock](http://SwiftClock.com) - time billing including for web developers including pass-through billing for agency workers to bill clients.
 
 http://SwiftForm.com is currently 100% free and will always have free options. 
 
 If you just want to make a nice looking form that emails you each time it is filled out, try it out. SwiftCloud is "freemium" i.e. we have paid options, but the basics are free.
 
-===== Features of SwiftForm: =====
-1. Fields like "Smart Zip" will automatically convert your zip code or postal code to city, state, zip, county, time zone
-1. Time zone, language settings and other meta will be stored automatically
-1. The complete URL of the page on which the form-data is sent from will be captured, including Google Analytics and other tracking data which will help with marketing, specifically, knowing how this person found you.
-1. More features coming soon.
+** FEATURES **
 
-Currently this plugin does just one thing: 
-1. Embed SwiftForm.com forms (a free drag and drop forms editor) into any Wordpress
-1. In production: Google Analytics conversion to cookie, so as to pass it through on captures
-1. In alpha: Lead Scoring
+1. Basics done well - capture leads to sell offline, add to autoresponders, without touching a single line of code.
+2. Advanced powerful features to make web developers look like rock stars!
+3. Advanced notification options. Email multiple recipients, SMS, post to remote CRMs and more.
+4. **Smart Fields** zip code code that convert zip to city, state, zip, county, time zone.
+5. Smart hidden fields like time zone, language detection.
+6. Powerful features like file upload, lead qualification, e-signature
+7. Any form can flow into Swift Marketing (autoresponders & inbound marketing), SwiftCRM (for sales teams and lead distribution), SwiftTasks (for helpdesk / ticket system), SwiftBooks (accounting)
 
-
-=== How to Use it ======
-blog / website, using either widgets or shortcodes (using [swiftform formid=XXXXXX] where XXXXX = your form number, as provided
-within the SwiftForm.com app.
-
-These forms can then be automatically connected to...
-* Autoresponder Sequences (in http://SwiftMarketing.com) 
-* SwiftCRM Hosted Client Relationship Manager (http://SwiftCRM.com)
-* SwiftBooks accounting (http://SwiftBooks.com)
-* SwiftTasks task/project management system (locked in Private Alpha as of Oct 2014)
-
-with additional use cases planned to follow. We welcome your feedback and requests.
 
 == Installation ==
 You probably know the drill by now, but if not, here's a step by step suggestion.
 
 1. Upload the `SwiftCloud` folder to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. To install a webform, login at http://SwiftForm.com (free signup) and click 'new form',
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. To install a webform, login at http://SwiftForm.com (free signup) and click 'new form',
 drag and drop fields to create a form, click save, and then remember the number it gives you.
-1. Either drop a shortcode like [swiftform id="123"] (change the 123 to your form number) OR go to appearance >> widgets and drag 'SwiftForm' over into a widget location. 
+4. Either drop a shortcode like [swiftform id="123"] (change the 123 to your form number) 
+5. OR go to appearance >> widgets and drag 'SwiftForm' over into a widget location. 
 
 == Frequently Asked Questions ==
 
@@ -66,13 +56,13 @@ drag and drop fields to create a form, click save, and then remember the number 
 
 Easy! 
 
-* First, signup at [SwiftCloud](https://SwiftCloud.io) (free), then when logged in, hover the logo top left and drop it to SwiftForm.
+* First, signup at [SwiftCloud](http://SwiftCloud.io) (free), then when logged in, hover the logo top left and drop it to SwiftForm.
 * Next, go to [SwiftForm >> New Form](http://swiftform.com/public/create-form). Drag and drop from the fields on the left, choose what you want to happen after capture, and hit save.
 * Next, embed into your website by dropping in a shortcode like [swiftform id="123"] (change the 123 to your form number) OR go to appearance >> widgets and drag 'SwiftForm' over into a widget location.
 
 That's it.
 
-For more help, see our [SwiftForm Support Section](https://SwiftForm.com/support) video training.
+For more help, see our [SwiftForm Support Section](http://SwiftForm.com/support) video training.
 
 == Screenshots ==
 
