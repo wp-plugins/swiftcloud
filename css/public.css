@@ -1,62 +1,96 @@
 .white-popup {
-  position: relative;
-  background: #FFF;
-  width: auto;
-  max-width: 500px;
-  margin: 20px auto;
-  padding:10px;
+    position: relative;
+    background: #FFF;
+    width: auto;
+    max-width: 500px;
+    margin: 20px auto;
+    padding:10px;
 }
 .white-popup-2 {
-  position: relative;
-  background: #FFF;
-  width: auto;
-  max-width: 1100px;
-  margin: 20px auto;
+    position: relative;
+    background: #FFF;
+    width: auto;
+    max-width: 1100px;
+    margin: 20px auto;
 }
 
 .mfp-close {
-	top: -18px !important;
-	right: -18px !important;
-	background:url('popup_close.png') !important;
-	width: 36px !important;
-	height: 37px !important;
- 	font-size:0px !important; 
-	background:transparent;
+    top: -18px !important;
+    right: -18px !important;
+    background:url('popup_close.png') !important;
+    width: 36px !important;
+    height: 37px !important;
+    font-size:0px !important;
+    background:transparent;
 }
 .mfp-close:hover, .mfp-close:active, .mfp-close:focus{
-	background:transparent;
+    background:transparent;
 }
 
 /* overlay at start */
 .mfp-fade.mfp-bg {
-  opacity: 0;
+    opacity: 0;
 
-  -webkit-transition: all 0.15s ease-out;
-  -moz-transition: all 0.15s ease-out;
-  transition: all 0.15s ease-out;
+    -webkit-transition: all 0.15s ease-out;
+    -moz-transition: all 0.15s ease-out;
+    transition: all 0.15s ease-out;
 }
 /* overlay animate in */
 .mfp-fade.mfp-bg.mfp-ready {
-  opacity: 0.8;
+    opacity: 0.8;
 }
 /* overlay animate out */
 .mfp-fade.mfp-bg.mfp-removing {
-  opacity: 0;
+    opacity: 0;
 }
 
 /* content at start */
 .mfp-fade.mfp-wrap .mfp-content {
-  opacity: 0;
+    opacity: 0;
 
-  -webkit-transition: all 0.15s ease-out;
-  -moz-transition: all 0.15s ease-out;
-  transition: all 0.15s ease-out;
+    -webkit-transition: all 0.15s ease-out;
+    -moz-transition: all 0.15s ease-out;
+    transition: all 0.15s ease-out;
 }
 /* content animate it */
 .mfp-fade.mfp-wrap.mfp-ready .mfp-content {
-  opacity: 1;
+    opacity: 1;
 }
 /* content animate out */
 .mfp-fade.mfp-wrap.mfp-removing .mfp-content {
-  opacity: 0;
+    opacity: 0;
 }
+
+
+/*-- swift form help desk---*/
+.sc-helpdesk-left{
+    float: left;
+    width: 45%;
+}
+.sc-helpdesk-right{
+    float: right;
+    width: 50%;
+}
+.sc-helpdesk-recentpost{
+
+}
+.sc-helpdesk-recentpost a{
+    color: #666;
+}
+.sc-helpdesk-recentpost h4{
+    margin: 20px 0 5px;
+}
+.sc-helpdesk-recentpost-img{
+    float: left;
+    margin: 0 10px 0 0;
+}
+.sc-helpdesk-recentpost-content{
+
+}
+.sc-helpdesk-recentpost-content p{
+    margin: 0;
+}
+.sm-recent-post a, .sm-recent-post a:hover{ text-decoration: none; }
+.sm-recent-post-img { float: left; width: 25%; }
+.sm-recent-post-content{ float: left; width: 75%; }
+.sm-recent-post-content p { margin-bottom: 0; }
