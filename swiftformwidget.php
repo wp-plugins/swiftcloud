@@ -18,6 +18,7 @@ function swift_enqueue_scripts_styles() {
 
     wp_enqueue_script('swift-popup-js', plugins_url('/js/jquery.magnific-popup.min.js', __FILE__), array('jquery'), '', true);
 
+
     wp_enqueue_script('swift-cookie-js', plugins_url('/js/jquery.cookie.js', __FILE__), array('jquery', 'swift-popup-js'), '', true);
 
     wp_enqueue_style('swift-popup-css', plugins_url('/css/magnific-popup.css', __FILE__), '', '', '');

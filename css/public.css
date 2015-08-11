@@ -63,34 +63,8 @@
 
 
 /*-- swift form help desk---*/
-.sc-helpdesk-left{
-    float: left;
-    width: 45%;
-}
-.sc-helpdesk-right{
-    float: right;
-    width: 50%;
-}
-.sc-helpdesk-recentpost{
-
-}
-.sc-helpdesk-recentpost a{
-    color: #666;
-}
-.sc-helpdesk-recentpost h4{
-    margin: 20px 0 5px;
-}
-.sc-helpdesk-recentpost-img{
-    float: left;
-    margin: 0 10px 0 0;
-}
-.sc-helpdesk-recentpost-content{
-
-}
-.sc-helpdesk-recentpost-content p{
-    margin: 0;
-}
+.sm-recent-post h4{color: #666;}
 .sm-recent-post a, .sm-recent-post a:hover{ text-decoration: none; }
 .sm-recent-post-img { float: left; width: 25%; }
-.sm-recent-post-content{ float: left; width: 75%; }
+.sm-recent-post-content{ float: left; width: 75%; color: #666; }
 .sm-recent-post-content p { margin-bottom: 0; }
